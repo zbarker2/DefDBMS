@@ -1,0 +1,7 @@
+FROM postgres:latest
+
+ENV POSTGRES_PASSWORD=ThisIsASecur3Pass!
+
+EXPOSE 5432
+
+COPY ./database.sql /docker-entrypoint-initdb.d/

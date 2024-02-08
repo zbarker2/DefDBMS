@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  mssqlserver:
+    build: ./mssql
+    ports:
+      - "1433:1433"
+  mysqlserver:
+    build: ./mysql
+    ports:
+      - "3306:3306"
+  postgres:
+    build: ./postgres
+    ports:
+      - "5432:5432"
