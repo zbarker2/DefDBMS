@@ -1,0 +1,19 @@
+FROM mcr.microsoft.com/mssql/server:2022-latest
+
+#Params for the sql server image; gotta accept the Eula, Might want to replace that password, and then use Express if you dont want to sell your soul to Microsoft.
+
+COPY ./startup.sh .
+COPY ./database.sh .
+COPY ./database.sql .
+
+ENV ACCEPT_EULA=Y
+ENV MSSQL_SA_PASSWORD=ThisIsASecur3Pass!
+ENV MSSQL_PID=Express
+
+# Expose 1433 on the container so that you can hit the database. 
+EXPOSE 1433
+
+#Execute a pre seed script
+
+CMD /bin/bash ./startup.sh
+
