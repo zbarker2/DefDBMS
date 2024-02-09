@@ -10,11 +10,27 @@ func testMssqlCredsDBConnection(t *testing.T) {
 	var unam string = "sa"
 	var pwrd string = "ThisIsASecur3Pass!"
 	var db string = "students"
-	var port string = "1401"
-	conn, err := mssqlCredsDBConnection(addr, unam, pwrd, db, port)
+	var port string = "1433"
+	conn, err := mssqlCredsConnection(addr, unam, pwrd, db, port)
 
 	if conn.Stats().OpenConnections < 1 || err != nil {
-		t.Fatalf(`mssqlCredsDBConnection(addr,unam,pwrd,db,port)= %s Unable to make database connection`, "yeet")
+		t.Fatalf(`mssqlCredsDBConnection(addr,unam,pwrd,db,port)= %s`, "Not Connected")
 	}
 
+}
+func testBadMssqlStringConnection(t *testing.T) {
+	var connString = "yeet"
+	conn, err := mssqlStringConnection(connString)
+
+	if conn.Stats().OpenConnections > 0 || err == nil {
+		t.Fatalf(`mssqlCredsDBConnection(connString)= %s`, " Should not be Connected")
+	}
+}
+func testGoodStrinConnection(t *testing.T) {
+	var connString = "server=localhost;user id=sa;password=ThisIsASecur3Pass!;port=1433;database=students"
+	conn, err := mssqlStringConnection(connString)
+
+	if conn.Stats().OpenConnections < 1 || err != nil {
+		t.Fatalf(`mssqlCredsDBConnection(addr,unam,pwrd,db,port)= %s`, "Not Connected")
+	}
 }

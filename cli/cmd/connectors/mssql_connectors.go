@@ -9,7 +9,7 @@ import (
 	_ "github.com/microsoft/go-mssqldb"
 )
 
-func mssqlCredsDBConnection(addr string, unam string, pwrd string, db string, port string) (*sql.DB, error) {
+func mssqlCredsConnection(addr string, unam string, pwrd string, db string, port string) (*sql.DB, error) {
 	var connString string = fmt.Sprintf("server=%s;user id=%s;password=%s;port=%s;database=%s", addr, unam, pwrd, port, db)
 	conn, err := sql.Open("mssql", connString)
 	if err != nil {
@@ -24,7 +24,7 @@ func mssqlCredsDBConnection(addr string, unam string, pwrd string, db string, po
 }
 
 // Can be used with Entra or U&P... still yet to be tested
-func mssqlStringDBConnection(connString string) *sql.DB {
+func mssqlStringConnection(connString string) (*sql.DB, error) {
 	conn, err := sql.Open("mssql", connString)
 	if err != nil {
 		log.Fatal("Failed to open connection: ", err.Error())
@@ -34,7 +34,7 @@ func mssqlStringDBConnection(connString string) *sql.DB {
 	if err != nil {
 		log.Fatal(err.Error())
 	}
-	return conn
+	return conn, err
 }
 
 func closeDBconnection(conn *sql.DB) {
