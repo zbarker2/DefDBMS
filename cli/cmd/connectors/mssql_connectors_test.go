@@ -26,7 +26,7 @@ func testBadMssqlStringConnection(t *testing.T) {
 		t.Fatalf(`mssqlCredsDBConnection(connString)= %s`, " Should not be Connected")
 	}
 }
-func testGoodStrinConnection(t *testing.T) {
+func testGoodStringConnection(t *testing.T) {
 	var connString = "server=localhost;user id=sa;password=ThisIsASecur3Pass!;port=1433;database=students"
 	conn, err := mssqlStringConnection(connString)
 
